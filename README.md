@@ -1,4 +1,4 @@
-# M2 Daily Automation
+# Daily Automation
 
 An automated daily content delivery pipeline built with Google Apps Script, the Anthropic Claude API, and Slack Incoming Webhooks.
 
