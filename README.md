@@ -12,3 +12,30 @@ Four automated triggers fire daily:
 - **9:00–10:00 PM**: `winthedayRecap()` — nightly accountability checklist, delivered to Slack (`#enveniam-viam`), Discord, and Gmail.
 
 ## Architecture
+```
+Google Apps Script (Engine)
+    |
+    |-- callClaude(prompt) --> Anthropic Claude API (model from Script Properties, web search enabled)
+    |                                |
+    |                                v
+    |                         Returns live tech news / generated text
+    |
+    |-- sendToSlack(webhookUrl, message) ------> Slack Incoming Webhook
+    |         |-- #aws-cloud-eng-span
+    |         |-- #enveniam-viam
+    |         |-- #tech-news
+    |
+    |-- sendToDiscord(webhookUrl, message) ----> Discord Webhook (Coach2CloudHQ)
+    |         |-- #aws-cloud-eng-span
+    |         |-- #enveniam-viam
+    |         |-- #tech-news
+    |         (includes 429 rate-limit retry logic)
+    |
+    |-- MailApp.sendEmail() -------------------> Gmail
+    |
+    |-- Time-driven triggers (4x daily) --> Serverless scheduling
+              |-- bilingualAWS()       ~8:18 AM
+              |-- morningMotivation()  9:00–10:00 AM
+              |-- morningTechnews()    ~10:17 AM
+              |-- winthedayRecap()     9:00–10:00 PM
+```
