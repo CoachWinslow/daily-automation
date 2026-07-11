@@ -39,3 +39,37 @@ Google Apps Script (Engine)
               |-- morningTechnews()    ~10:17 AM
               |-- winthedayRecap()     9:00–10:00 PM
 ```
+## Tech Stack
+
+- **Language**: JavaScript (Google Apps Script / ES6)
+- **AI**: Anthropic Claude API (model pulled from Script Properties, not hardcoded)
+- **Messaging**: Slack Incoming Webhooks + Discord Webhooks
+- **Email**: Gmail via Google Apps Script MailApp
+- **Secrets Management**: Google Apps Script Script Properties
+- **Scheduling**: Google Apps Script time-driven triggers (serverless)
+
+## Functions
+
+| Function | Purpose |
+|---|---|
+| sendToSlack(webhookUrl, message) | Reusable helper that POSTs a JSON payload to any Slack webhook URL |
+| sendToDiscord(webhookUrl, message) | Same pattern for Discord, with 429 rate-limit retry logic |
+| callClaude(prompt) | Sends a prompt to the Claude API with web search enabled, returns text response |
+| bilingualAWS() | Daily AWS concept, English + Spanish, fans out to Slack + Discord + Gmail |
+| morningMotivation() | Daily non-negotiables checklist, fans out to Slack + Discord + Gmail |
+| morningTechnews() | Live tech news digest via Claude, fans out to Slack + Discord + Gmail |
+| winthedayRecap() | Nightly accountability checklist, fans out to Slack + Discord + Gmail |
+
+## Secrets Management
+
+All credentials live in Script Properties, never hardcoded:
+
+- CLAUDE_API_KEY, CLAUDE_MODEL
+- SLACK_WEBHOOK_AWS, SLACK_WEBHOOK_ENVENIAMVIAM, SLACK_WEBHOOK_TECHNEWS
+- DISCORD_WEBHOOK_AWS, DISCORD_WEBHOOK_ENVENIAMVIAM, DISCORD_WEBHOOK_TECHNEWS
+
+## Author
+
+**Mike Winslow (Coach)** | Coach2Cloud / C³Solutions
+
+*Enveniam Viam. I shall find a way.*
